@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Cinema city - Kup bilety już teraz!</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .card {
+            background: #fff;
+            width: 360px;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .buttons {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            height: 70px;
+        }
+
+        button {
+            padding: 12px 26px;
+            font-size: 16px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        #yes {
+            background: #ff4d6d;
+            color: #fff;
+        }
+
+        #no {
+            background: #ccc;
+            color: #000;
+            position: relative;
+            pointer-events: none; /* NIE NIE DA SIĘ KLIKNĄĆ */
+        }
+
+        .message {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .photo {
+            margin-top: 25px;
+            width: 100%;
+            height: 200px;
+            border-radius: 16px;
+            border: 2px dashed #ff4d6d;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #ff4d6d;
+            font-weight: bold;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h1 id="title">Gabi, czy zostaniesz moją walentynką? 💘</h1>
+
+    <div class="buttons" id="buttons">
+        <button id="yes">TAK</button>
+        <button id="no">NIE</button>
+    </div>
+
+    <div class="message" id="message"></div>
+
+    <div class="photo" id="photo">
+      <img src="c:\Users\gagaw\Downloads\justin-bieber-meme.png">
+    </div>
+</div>
+
+<script>
+    const noBtn = document.getElementById("no");
+    const yesBtn = document.getElementById("yes");
+    const message = document.getElementById("message");
+    const title = document.getElementById("title");
+    const buttons = document.getElementById("buttons");
+    const photo = document.getElementById("photo");
+
+    function runAway() {
+        const x = Math.random() * 300 - 150;
+        const y = Math.random() * 140 - 70;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+        message.textContent = "no weź… i tak wiem jak to się skończy 😏";
+    }
+
+    // Ucieka przy zbliżeniu kursora
+    document.addEventListener("mousemove", (e) => {
+        const rect = noBtn.getBoundingClientRect();
+        const distance = Math.hypot(
+            e.clientX - (rect.left + rect.width / 2),
+            e.clientY - (rect.top + rect.height / 2)
+        );
+
+        if (distance < 90) {
+            runAway();
+        }
+    });
+
+    // TAK wygrywa
+    yesBtn.addEventListener("click", () => {
+        title.textContent = "Wiedziałem Gaberysia ❤️";
+        message.textContent = "";
+        buttons.style.display = "none";
+        photo.style.display = "flex";
+    });
+</script>
+
+</body>
+</html>
